@@ -7,6 +7,7 @@
     <meta name="author" content="Adrián Calderón">
     <meta name="color-scheme" content="light dark">
     <title>CV Interactivo | Adrián Calderón</title>
+
     <link rel="stylesheet" href="css/styles.css">
     <!-- defer: el script se ejecuta cuando el HTML ya terminó de cargarse -->
     <script src="js/script.js" defer></script>
@@ -22,7 +23,7 @@
     <header class="site_header">
         <div class="header_container">
             <div class="profile_header">
-                <div class="profile_image_wrapper">
+                <figure class="profile_image_wrapper">
                     <img
                         src="assets/images/foto.jpeg"
                         alt="Fotografía de Adrián Calderón"
@@ -30,7 +31,7 @@
                         width="150"
                         height="150"
                     >
-                </div>
+                </figure>
 
                 <div class="profile_data">
                     <p class="eyebrow">ESTUDIANTE DE INGENIERÍA DE SISTEMAS</p>
@@ -95,10 +96,10 @@
 
         <!-- 01 · PERFIL -->
         <section id="perfil" class="content_section" aria-labelledby="perfil_title">
-            <div class="section_heading">
+            <header class="section_heading">
                 <p class="section_number">01</p>
                 <h2 id="perfil_title">Perfil profesional</h2>
-            </div>
+            </header>
 
             <div class="profile_layout">
                 <div class="profile_card">
@@ -147,50 +148,46 @@
 
         <!-- 02 · FORMACIÓN -->
         <section id="formacion" class="content_section" aria-labelledby="formacion_title">
-            <div class="section_heading">
+            <header class="section_heading">
                 <p class="section_number">02</p>
                 <h2 id="formacion_title">Formación académica</h2>
-            </div>
+            </header>
 
             <article class="timeline_item">
-                <div class="timeline_date">
+                <p class="timeline_date">
                     <time datetime="2025">2025</time> – Actualidad
-                </div>
-                <div class="timeline_content">
-                    <h3>Ingeniería de Sistemas</h3>
-                    <p>Universidad Católica Boliviana “San Pablo” – La Paz, Bolivia</p>
-                    <p>
-                        Formación en programación, estructuras de datos, bases de datos,
-                        cálculo, estadística, arquitectura computacional y tecnologías web.
-                    </p>
-                </div>
+                </p>
+                <h3>Ingeniería de Sistemas</h3>
+                <p>Universidad Católica Boliviana “San Pablo” – La Paz, Bolivia</p>
+                <p>
+                    Formación en programación, estructuras de datos, bases de datos,
+                    cálculo, estadística, arquitectura computacional y tecnologías web.
+                </p>
             </article>
 
             <article class="timeline_item">
-                <div class="timeline_date">
+                <p class="timeline_date">
                     Primaria y Secundaria
-                </div>
-                <div class="timeline_content">
-                    <h3>Colegio San Calixto</h3>
-                    <p>La Paz, Bolivia</p>
-                    <p>
-                        Realicé toda mi formación primaria y secundaria en el
-                        Colegio San Calixto, donde completé mis estudios escolares
-                        antes de iniciar mi formación universitaria.
-                    </p>
-                </div>
+                </p>
+                <h3>Colegio San Calixto</h3>
+                <p>La Paz, Bolivia</p>
+                <p>
+                    Realicé toda mi formación primaria y secundaria en el
+                    Colegio San Calixto, donde completé mis estudios escolares
+                    antes de iniciar mi formación universitaria.
+                </p>
             </article>
         </section>
 
         <!-- 03 · PROYECTOS (Funcionalidad 3: buscador en tiempo real) -->
         <section id="proyectos" class="content_section" aria-labelledby="proyectos_title">
-            <div class="section_heading">
+            <header class="section_heading">
                 <p class="section_number">03</p>
                 <h2 id="proyectos_title">Proyectos académicos</h2>
-            </div>
+            </header>
 
-            <!-- role="search" identifica esta zona como un buscador -->
-            <div class="project_filters" role="search" aria-label="Filtrar proyectos">
+            <!-- <search> es la etiqueta semántica de HTML5 para zonas de búsqueda -->
+            <search class="project_filters" aria-label="Filtrar proyectos">
                 <div class="form_group">
                     <label for="project_search">Buscar proyecto</label>
                     <input
@@ -213,7 +210,7 @@
                     <button type="button" class="chip" data-category="datos" aria-pressed="false">Datos</button>
                     <button type="button" class="chip" data-category="hardware" aria-pressed="false">Hardware</button>
                 </fieldset>
-            </div>
+            </search>
 
             <!-- aria-live anuncia a lectores de pantalla cuántos resultados hay -->
             <p id="project_count" class="results_count" role="status" aria-live="polite"></p>
@@ -232,10 +229,10 @@
 
         <!-- 04 · HABILIDADES -->
         <section id="habilidades" class="content_section" aria-labelledby="habilidades_title">
-            <div class="section_heading">
+            <header class="section_heading">
                 <p class="section_number">04</p>
                 <h2 id="habilidades_title">Habilidades técnicas</h2>
-            </div>
+            </header>
 
             <div class="skills_layout">
                 <article class="skill_group">
@@ -286,10 +283,10 @@
 
         <!-- 05 · IDIOMAS -->
         <section id="idiomas" class="content_section" aria-labelledby="idiomas_title">
-            <div class="section_heading">
+            <header class="section_heading">
                 <p class="section_number">05</p>
                 <h2 id="idiomas_title">Idiomas</h2>
-            </div>
+            </header>
 
             <!-- tabindex="0" permite desplazar la tabla con el teclado en móvil -->
             <div class="table_wrapper" tabindex="0" role="region" aria-labelledby="idiomas_caption">
@@ -323,10 +320,10 @@
 
         <!-- 06 · GITHUB (Funcionalidad 5: consumo de API REST) -->
         <section id="github" class="content_section" aria-labelledby="github_title">
-            <div class="section_heading">
+            <header class="section_heading">
                 <p class="section_number">06</p>
                 <h2 id="github_title">Actividad en GitHub</h2>
-            </div>
+            </header>
 
             <p class="section_intro">
                 Información obtenida en tiempo real desde la API REST pública de GitHub.
@@ -345,19 +342,19 @@
                     <div id="github_profile_body" class="github_profile_body"></div>
                 </aside>
 
-                <div class="github_repos">
-                    <h3>Repositorios actualizados recientemente</h3>
+                <section class="github_repos" aria-labelledby="repos_title">
+                    <h3 id="repos_title">Repositorios actualizados recientemente</h3>
                     <ul id="repo_list" class="repo_list" aria-busy="false"></ul>
-                </div>
+                </section>
             </div>
         </section>
 
         <!-- 07 · CONTACTO (Funcionalidad 4: formulario con validación) -->
         <section id="contacto" class="content_section" aria-labelledby="contacto_title">
-            <div class="section_heading">
+            <header class="section_heading">
                 <p class="section_number">07</p>
                 <h2 id="contacto_title">Contacto</h2>
-            </div>
+            </header>
 
             <p class="contact_intro">
                 ¿Tienes una propuesta, proyecto o consulta? Completa el formulario.

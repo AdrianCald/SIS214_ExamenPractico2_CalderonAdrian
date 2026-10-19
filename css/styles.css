@@ -476,6 +476,7 @@ blockquote {
 .quick_facts {
     padding: var(--space-6);
     border: 1px solid var(--border-color);
+    border-top: 4px solid var(--secondary-color);
     border-radius: var(--radius-medium);
 }
 
@@ -500,7 +501,7 @@ blockquote {
 .timeline_item {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-2);
+    gap: var(--space-1);
     padding: var(--space-5) 0;
     border-top: 1px solid var(--border-color);
 }
@@ -515,11 +516,12 @@ blockquote {
     color: var(--accent-color);
 }
 
-.timeline_content h3 {
+.timeline_item h3 {
     margin-bottom: var(--space-1);
 }
 
-.timeline_content p + p {
+/* El último párrafo (la descripción) va en un color más suave */
+.timeline_item h3 ~ p + p {
     margin-top: var(--space-2);
     color: var(--muted-color);
 }
@@ -1056,9 +1058,19 @@ tbody tr:nth-child(even) {
         padding: var(--space-8);
     }
 
+    /* Fecha en la primera columna; título y textos en la segunda */
     .timeline_item {
         grid-template-columns: minmax(140px, 0.3fr) 1fr;
-        gap: var(--space-6);
+        column-gap: var(--space-6);
+        row-gap: 0;
+    }
+
+    .timeline_item > :not(.timeline_date) {
+        grid-column: 2;
+    }
+
+    .timeline_date {
+        grid-row: 1 / span 3;
     }
 
     .card_grid,
