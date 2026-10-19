@@ -433,3 +433,211 @@ category_buttons.forEach((button) => {
 render_projects();
 
 
+/* ==========================================================================
+   4. FORMULARIO DE CONTACTO CON VALIDACIÓN EN TIEMPO REAL
+   ========================================================================== */
+
+const contact_form = document.querySelector("#contact_form");
+const form_message = document.querySelector("#form_message");
+const message_counter = document.querySelector("#mensaje_counter");
+
+// Bandera para distinguir el botón "Limpiar" del reset que hacemos tras un envío exitoso
+let is_programmatic_reset = false;
+
+/*
+ * Cada campo tiene mensajes según el TIPO de error.
+ * input.validity es la API de validación nativa del navegador:
+ *   valueMissing    → falta un campo obligatorio (required)
+ *   typeMismatch    → el formato no corresponde (type="email")
+ *   tooShort        → menos caracteres que minlength
+ *   patternMismatch → no cumple el pattern
+ *   customError     → error definido por nosotros con setCustomValidity()
+ */
+const fields = {
+    nombre: {
+        input: document.querySelector("#nombre"),
+        error: document.querySelector("#nombre_error"),
+        messages: {
+            valueMissing: "Escribe tu nombre completo.",
+            tooShort: "El nombre debe tener al menos 3 caracteres.",
+            customError: "El nombre no puede contener solo espacios."
+        }
+    },
+    correo: {
+        input: document.querySelector("#correo"),
+        error: document.querySelector("#correo_error"),
+        messages: {
+            valueMissing: "Escribe tu correo electrónico.",
+            typeMismatch: "Introduce un correo válido, por ejemplo: nombre@correo.com."
+        }
+    },
+    telefono: {
+        input: document.querySelector("#telefono"),
+        error: document.querySelector("#telefono_error"),
+        messages: {
+            patternMismatch: "Usa entre 7 y 20 caracteres: números, espacios, +, - o paréntesis."
+        }
+    },
+    motivo: {
+        input: document.querySelector("#motivo"),
+        error: document.querySelector("#motivo_error"),
+        messages: {
+            valueMissing: "Selecciona un motivo de contacto."
+        }
+    },
+    mensaje: {
+        input: document.querySelector("#mensaje"),
+        error: document.querySelector("#mensaje_error"),
+        messages: {
+            valueMissing: "Escribe tu mensaje.",
+            tooShort: "El mensaje debe tener al menos 10 caracteres.",
+            customError: "El mensaje no puede contener solo espacios."
+        }
+    },
+    aceptacion: {
+        input: document.querySelector("#aceptacion"),
+        error: document.querySelector("#aceptacion_error"),
+        messages: {
+            valueMissing: "Debes aceptar el uso de tus datos para poder enviar el mensaje."
+        }
+    }
+};
+
+/**
+ * Busca el primer error que tenga el campo y devuelve su mensaje.
+ */
+function get_error_message(field) {
+    const { validity } = field.input;
+
+    const error_type = Object.keys(field.messages).find((type) => validity[type]);
+
+    return error_type ? field.messages[error_type] : "Revisa este campo.";
+}
+
+/**
+ * Valida un campo usando la validación nativa del navegador
+ * y muestra (o borra) su mensaje de error.
+ * @returns {boolean} true si el campo es válido
+ */
+function validate_field(field) {
+    const { input, error } = field;
+
+    // Regla extra: los textos obligatorios no pueden ser solo espacios.
+    // setCustomValidity("...") marca el campo como inválido; "" lo limpia.
+    if (input.id === "nombre" || input.id === "mensaje") {
+        const only_spaces = input.value.length > 0 && input.value.trim() === "";
+        input.setCustomValidity(only_spaces ? "solo espacios" : "");
+    }
+
+    // checkValidity() revisa required, type, minlength, pattern, etc.
+    const is_valid = input.checkValidity();
+
+    error.textContent = is_valid ? "" : get_error_message(field);
+
+    // Clases para el color del borde y aria-invalid para lectores de pantalla
+    input.classList.toggle("invalid", !is_valid);
+    input.classList.toggle("valid", is_valid && input.value.trim() !== "" && input.type !== "checkbox");
+    input.setAttribute("aria-invalid", String(!is_valid));
+
+    return is_valid;
+}
+
+/**
+ * Actualiza el contador de caracteres del mensaje.
+ */
+function update_message_counter() {
+    const { input } = fields.mensaje;
+    const length = input.value.length;
+
+    message_counter.textContent = `${length} / ${input.maxLength}`;
+    message_counter.classList.toggle("near_limit", length >= input.maxLength * 0.9);
+}
+
+/**
+ * Quita todos los estados visuales del formulario.
+ */
+function clear_form_feedback() {
+    Object.values(fields).forEach(({ input, error }) => {
+        input.classList.remove("invalid", "valid");
+        input.removeAttribute("aria-invalid");
+        error.textContent = "";
+    });
+
+    update_message_counter();
+}
+
+// Validación en tiempo real
+Object.values(fields).forEach((field) => {
+    // Los checkbox y select avisan con "change"; los textos con "input"
+    const live_event = field.input.type === "checkbox" || field.input.tagName === "SELECT"
+        ? "change"
+        : "input";
+
+    // "input": se valida mientras el usuario escribe
+    field.input.addEventListener(live_event, () => {
+        validate_field(field);
+
+        if (field.input.id === "mensaje") {
+            update_message_counter();
+        }
+
+        // Si había un mensaje general de error, lo limpiamos al corregir
+        if (form_message.classList.contains("error")) {
+            form_message.textContent = "";
+            form_message.className = "form_message";
+        }
+    });
+
+    // "blur": se valida al salir del campo (por ejemplo, si lo dejó vacío)
+    field.input.addEventListener("blur", () => validate_field(field));
+});
+
+// Envío del formulario
+contact_form.addEventListener("submit", (event) => {
+    // Evita que la página se recargue al enviar
+    event.preventDefault();
+
+    // Validamos TODOS los campos (map + every nos da true solo si todos son válidos)
+    const results = Object.values(fields).map((field) => validate_field(field));
+    const form_valid = results.every(Boolean);
+
+    if (!form_valid) {
+        form_message.textContent = "Revisa los campos marcados antes de enviar el formulario.";
+        form_message.className = "form_message error";
+
+        // Llevamos el foco al primer campo con error
+        const first_invalid = Object.values(fields).find(({ input }) => !input.checkValidity());
+        first_invalid?.input.focus();
+        return;
+    }
+
+    // FormData recoge todos los valores del formulario
+    const form_data = Object.fromEntries(new FormData(contact_form));
+    const first_name = form_data.nombre.trim().split(/\s+/)[0];
+
+    // Limpiamos el formulario sin borrar el mensaje de éxito
+    is_programmatic_reset = true;
+    contact_form.reset();
+    clear_form_feedback();
+    is_programmatic_reset = false;
+
+    form_message.textContent = `¡Gracias, ${first_name}! Tu mensaje fue validado correctamente.`;
+    form_message.className = "form_message success";
+});
+
+contact_form.addEventListener("reset", () => {
+    if (is_programmatic_reset) {
+        return;
+    }
+
+    // setTimeout(…, 0) espera a que el navegador termine de vaciar los campos
+    window.setTimeout(() => {
+        form_message.textContent = "";
+        form_message.className = "form_message";
+        clear_form_feedback();
+    }, 0);
+});
+
+update_message_counter();
+
+
