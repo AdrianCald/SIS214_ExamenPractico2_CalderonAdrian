@@ -575,6 +575,28 @@ body.dark_mode .chip[aria-pressed="true"] {
     color: var(--muted-color);
 }
 
+/* Tarjeta del gráfico de Chart.js */
+.chart_card {
+    margin-bottom: var(--space-5);
+    padding: var(--space-4);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-medium);
+    background: var(--surface-alt-color);
+}
+
+/* Chart.js necesita un contenedor con altura definida */
+.chart_card canvas {
+    width: 100% !important;
+    height: 200px !important;
+}
+
+.chart_card figcaption {
+    margin-top: var(--space-2);
+    text-align: center;
+    font-size: var(--font-size-small);
+    color: var(--muted-color);
+}
+
 .empty_state {
     padding: var(--space-6);
     text-align: center;

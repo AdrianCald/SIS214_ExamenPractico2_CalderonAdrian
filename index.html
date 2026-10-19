@@ -11,6 +11,7 @@
     <!-- Librerías externas (guardadas localmente en la carpeta libs/) -->
     <link rel="stylesheet" href="libs/aos/aos.css">
     <script src="libs/aos/aos.js" defer></script>
+    <script src="libs/chartjs/chart.umd.min.js" defer></script>
 
     <!-- Estilos propios -->
     <link rel="stylesheet" href="css/styles.css">
@@ -220,6 +221,16 @@
 
             <!-- aria-live anuncia a lectores de pantalla cuántos resultados hay -->
             <p id="project_count" class="results_count" role="status" aria-live="polite"></p>
+
+            <!-- Gráfico (Chart.js): proyectos por categoría; se actualiza con el filtro -->
+            <figure class="chart_card">
+                <canvas
+                    id="projects_chart"
+                    role="img"
+                    aria-label="Gráfico de barras con la cantidad de proyectos visibles por categoría"
+                ></canvas>
+                <figcaption>Proyectos visibles por categoría</figcaption>
+            </figure>
 
             <!-- JavaScript dibuja aquí las tarjetas a partir del arreglo de proyectos -->
             <div id="project_list" class="card_grid"></div>
