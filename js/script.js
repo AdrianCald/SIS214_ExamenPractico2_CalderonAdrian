@@ -641,3 +641,285 @@ contact_form.addEventListener("reset", () => {
 update_message_counter();
 
 
+/* ==========================================================================
+   5. CONSUMO DE API REST: GITHUB
+   Documentación: https://docs.github.com/es/rest
+   ========================================================================== */
+
+const GITHUB_USER = "AdrianCald";
+const GITHUB_API_URL = "https://api.github.com";
+const REQUEST_TIMEOUT_MS = 10000;
+const MAX_REPOS = 6;
+
+const github_status = document.querySelector("#github_status");
+const github_retry = document.querySelector("#github_retry");
+const github_profile_body = document.querySelector("#github_profile_body");
+const repo_list = document.querySelector("#repo_list");
+
+/**
+ * Error personalizado que guarda el código de estado HTTP.
+ */
+class HttpError extends Error {
+    constructor(status, message) {
+        super(message);
+        this.name = "HttpError";
+        this.status = status;
+    }
+}
+
+/**
+ * Hace una petición GET y devuelve el JSON.
+ * Si la respuesta no es exitosa (response.ok === false), lanza un HttpError.
+ */
+async function fetch_json(url, signal) {
+    const response = await fetch(url, {
+        headers: { Accept: "application/vnd.github+json" },
+        signal
+    });
+
+    // response.ok es true solo para códigos 200–299
+    if (!response.ok) {
+        throw new HttpError(response.status, `HTTP ${response.status} en ${url}`);
+    }
+
+    return response.json();
+}
+
+/**
+ * Traduce cualquier error a un mensaje claro para el usuario.
+ */
+function get_api_error_message(error) {
+    if (error.name === "AbortError") {
+        return "La solicitud tardó demasiado. Revisa tu conexión e inténtalo de nuevo.";
+    }
+
+    if (error instanceof HttpError) {
+        if (error.status === 404) {
+            return "No se encontró el usuario de GitHub (error 404).";
+        }
+        if (error.status === 403 || error.status === 429) {
+            return `GitHub limitó las consultas temporalmente (error ${error.status}). Espera unos minutos y vuelve a intentarlo.`;
+        }
+        if (error.status >= 500) {
+            return `GitHub no está disponible en este momento (error ${error.status}).`;
+        }
+        return `No se pudo obtener la información (error ${error.status}).`;
+    }
+
+    // TypeError: suele significar que no hay conexión a internet
+    return "No se pudo conectar con GitHub. Comprueba tu conexión a internet.";
+}
+
+/**
+ * Cambia el estado visual: "loading", "success" o "error".
+ */
+function set_api_state(state, message) {
+    github_status.className = `api_status ${state}`;
+    github_status.textContent = message;
+
+    const is_loading = state === "loading";
+    repo_list.setAttribute("aria-busy", String(is_loading));
+    github_retry.disabled = is_loading;
+}
+
+/**
+ * Muestra tarjetas "fantasma" mientras se cargan los datos.
+ */
+function render_loading_skeletons() {
+    const avatar = document.createElement("div");
+    avatar.className = "skeleton skeleton_avatar";
+
+    // Array.from + .map para crear varias líneas de carga
+    const lines = Array.from({ length: 3 }, () => {
+        const line = document.createElement("div");
+        line.className = "skeleton skeleton_line";
+        return line;
+    });
+
+    github_profile_body.replaceChildren(avatar, ...lines);
+
+    const skeleton_cards = Array.from({ length: 4 }, () => {
+        const item = document.createElement("li");
+        item.className = "skeleton";
+        item.setAttribute("aria-hidden", "true");
+        return item;
+    });
+
+    repo_list.replaceChildren(...skeleton_cards);
+}
+
+/**
+ * Dibuja el resumen del perfil dentro del <aside>.
+ */
+function render_profile(user) {
+    const avatar = document.createElement("img");
+    avatar.className = "github_avatar";
+    avatar.src = user.avatar_url;
+    avatar.alt = `Avatar de GitHub de ${user.login}`;
+    avatar.width = 72;
+    avatar.height = 72;
+
+    const login = document.createElement("a");
+    login.className = "github_login";
+    login.href = user.html_url;
+    login.target = "_blank";
+    login.rel = "noopener noreferrer";
+    login.textContent = `@${user.login}`;
+
+    const stats = document.createElement("ul");
+    stats.className = "github_stats";
+
+    const stats_data = [
+        ["Repositorios", user.public_repos],
+        ["Seguidores", user.followers],
+        ["Siguiendo", user.following]
+    ];
+
+    stats.append(...stats_data.map(([label, value]) => {
+        const item = document.createElement("li");
+        const number = document.createElement("strong");
+        number.textContent = value;
+        item.append(number, ` ${label}`);
+        return item;
+    }));
+
+    const elements = [avatar, login];
+
+    if (user.bio) {
+        const bio = document.createElement("p");
+        bio.textContent = user.bio;
+        elements.push(bio);
+    }
+
+    elements.push(stats);
+    github_profile_body.replaceChildren(...elements);
+}
+
+/**
+ * Formatea una fecha ISO a texto en español (ej.: "18 oct 2026").
+ */
+const date_formatter = new Intl.DateTimeFormat("es-BO", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+});
+
+/**
+ * Crea la tarjeta <li> de un repositorio.
+ */
+function create_repo_card(repo) {
+    const item = document.createElement("li");
+
+    const card = document.createElement("article");
+    card.className = "repo_card";
+
+    const title = document.createElement("h4");
+    const link = document.createElement("a");
+    link.href = repo.html_url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = repo.name;
+    title.append(link);
+
+    const description = document.createElement("p");
+    description.className = "repo_description";
+    description.textContent = repo.description || "Sin descripción.";
+
+    const meta = document.createElement("p");
+    meta.className = "repo_meta";
+
+    const language = document.createElement("span");
+    language.textContent = `💻 ${repo.language || "Sin lenguaje"}`;
+
+    const stars = document.createElement("span");
+    stars.textContent = `⭐ ${repo.stargazers_count}`;
+
+    const updated = document.createElement("time");
+    updated.dateTime = repo.pushed_at || repo.updated_at;
+    updated.textContent = `🕒 ${date_formatter.format(new Date(updated.dateTime))}`;
+
+    meta.append(language, stars, updated);
+    card.append(title, description, meta);
+    item.append(card);
+
+    return item;
+}
+
+/**
+ * Dibuja la lista de repositorios.
+ */
+function render_repos(repos) {
+    if (repos.length === 0) {
+        const empty = document.createElement("li");
+        empty.className = "empty_state";
+        empty.textContent = "Este usuario todavía no tiene repositorios públicos.";
+        repo_list.replaceChildren(empty);
+        return;
+    }
+
+    repo_list.replaceChildren(...repos.map(create_repo_card));
+}
+
+/**
+ * Muestra un recuadro de error dentro de la sección.
+ */
+function render_api_error(message) {
+    const profile_error = document.createElement("p");
+    profile_error.textContent = "Sin datos disponibles.";
+    github_profile_body.replaceChildren(profile_error);
+
+    const item = document.createElement("li");
+    item.className = "api_error_box";
+    item.textContent = `${message} Pulsa «Actualizar» para reintentar.`;
+    repo_list.replaceChildren(item);
+}
+
+/**
+ * Función principal: consulta la API con async/await.
+ */
+async function load_github_data() {
+    // ----- Estado: CARGANDO -----
+    set_api_state("loading", "Cargando información desde GitHub…");
+    render_loading_skeletons();
+
+    // AbortController permite cancelar la petición si tarda demasiado
+    const controller = new AbortController();
+    const timeout_id = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+    try {
+        // Promise.all lanza las dos peticiones al mismo tiempo
+        const [user, repos] = await Promise.all([
+            fetch_json(`${GITHUB_API_URL}/users/${GITHUB_USER}`, controller.signal),
+            fetch_json(`${GITHUB_API_URL}/users/${GITHUB_USER}/repos?sort=pushed&per_page=30`, controller.signal)
+        ]);
+
+        // Quitamos forks y nos quedamos con los más recientes (sin mutar "repos")
+        const recent_repos = repos
+            .filter((repo) => !repo.fork)
+            .slice(0, MAX_REPOS);
+
+        render_profile(user);
+        render_repos(recent_repos);
+
+        // ----- Estado: ÉXITO -----
+        set_api_state(
+            "success",
+            `✓ Datos actualizados: ${recent_repos.length} repositorios recientes.`
+        );
+    } catch (error) {
+        // ----- Estado: ERROR -----
+        console.warn("Error al consultar la API de GitHub:", error);
+
+        const message = get_api_error_message(error);
+        set_api_state("error", `⚠ ${message}`);
+        render_api_error(message);
+    } finally {
+        // finally se ejecuta siempre, haya éxito o error
+        window.clearTimeout(timeout_id);
+    }
+}
+
+github_retry.addEventListener("click", load_github_data);
+
+// Consulta inicial al cargar la página
+load_github_data();
