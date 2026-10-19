@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CV interactivo de Adrián, estudiante de Ingeniería de Sistemas.">
+    <meta name="description" content="CV interactivo y portafolio de Adrián Calderón, estudiante de Ingeniería de Sistemas en la Universidad Católica Boliviana.">
+    <meta name="author" content="Adrián Calderón">
+    <meta name="color-scheme" content="light dark">
     <title>CV Interactivo | Adrián Calderón</title>
     <link rel="stylesheet" href="css/styles.css">
+    <!-- defer: el script se ejecuta cuando el HTML ya terminó de cargarse -->
     <script src="js/script.js" defer></script>
 </head>
 
 <body>
+    <!-- Enlace para usuarios de teclado: salta directo al contenido -->
     <a class="skip_link" href="#main_content">Saltar al contenido principal</a>
 
+    <!-- =========================================================
+         HEADER: foto, datos, botón de tema y navegación
+         ========================================================= -->
     <header class="site_header">
         <div class="header_container">
             <div class="profile_header">
@@ -20,6 +27,8 @@
                         src="assets/images/foto.jpeg"
                         alt="Fotografía de Adrián Calderón"
                         class="profile_image"
+                        width="150"
+                        height="150"
                     >
                 </div>
 
@@ -36,6 +45,7 @@
                     </address>
                 </div>
 
+                <!-- Funcionalidad 1: tema claro/oscuro (aria-pressed indica si está activo) -->
                 <button
                     id="theme_button"
                     class="theme_button"
@@ -48,46 +58,94 @@
             </div>
 
             <nav class="main_nav" aria-label="Navegación principal">
-                <ul>
+                <!-- Funcionalidad 2: menú hamburguesa.
+                     aria-expanded dice si el menú está abierto;
+                     aria-controls apunta a la lista que abre/cierra -->
+                <button
+                    id="menu_button"
+                    class="menu_button"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="main_menu"
+                    aria-label="Abrir menú de navegación"
+                >
+                    <span class="menu_icon" aria-hidden="true">
+                        <span></span><span></span><span></span>
+                    </span>
+                    <span class="menu_text">Menú</span>
+                </button>
+
+                <ul id="main_menu" class="main_menu">
                     <li><a href="#perfil">Perfil</a></li>
                     <li><a href="#formacion">Formación</a></li>
                     <li><a href="#proyectos">Proyectos</a></li>
                     <li><a href="#habilidades">Habilidades</a></li>
                     <li><a href="#idiomas">Idiomas</a></li>
+                    <li><a href="#github">GitHub</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main id="main_content" class="main_content">
+    <!-- =========================================================
+         MAIN: contenido principal del CV
+         ========================================================= -->
+    <main id="main_content" class="main_content" tabindex="-1">
 
+        <!-- 01 · PERFIL -->
         <section id="perfil" class="content_section" aria-labelledby="perfil_title">
             <div class="section_heading">
                 <p class="section_number">01</p>
                 <h2 id="perfil_title">Perfil profesional</h2>
             </div>
 
-            <div class="profile_card">
-                <p>
-                    Soy estudiante de <strong>Ingeniería de Sistemas</strong> con interés
-                    en el desarrollo de software, las tecnologías web, las bases de datos
-                    y la resolución de problemas mediante programación.
-                </p>
+            <div class="profile_layout">
+                <div class="profile_card">
+                    <p>
+                        Soy estudiante de <strong>Ingeniería de Sistemas</strong> con interés
+                        en el desarrollo de software, las tecnologías web, las bases de datos
+                        y la resolución de problemas mediante programación.
+                    </p>
 
-                <p>
-                    Durante mi formación académica he trabajado con
-                    <strong>Java, C++, Python, HTML, CSS, JavaScript y SQL</strong>,
-                    desarrollando proyectos que combinan lógica de programación,
-                    diseño de interfaces y manejo de información.
-                </p>
+                    <p>
+                        Durante mi formación académica he trabajado con
+                        <strong>Java, C++, Python, HTML, CSS, JavaScript y SQL</strong>,
+                        desarrollando proyectos que combinan lógica de programación,
+                        diseño de interfaces y manejo de información.
+                    </p>
 
-                <blockquote>
-                    <p>“Aprender tecnología no consiste solo en escribir código, sino en aprender a resolver problemas.”</p>
-                </blockquote>
+                    <blockquote>
+                        <p>“Aprender tecnología no consiste solo en escribir código, sino en aprender a resolver problemas.”</p>
+                    </blockquote>
+                </div>
+
+                <!-- aside: información complementaria al perfil -->
+                <aside class="quick_facts" aria-labelledby="quick_facts_title">
+                    <h3 id="quick_facts_title">Datos rápidos</h3>
+                    <dl>
+                        <div>
+                            <dt>Carrera</dt>
+                            <dd>Ingeniería de Sistemas</dd>
+                        </div>
+                        <div>
+                            <dt>Universidad</dt>
+                            <dd>UCB «San Pablo»</dd>
+                        </div>
+                        <div>
+                            <dt>Ubicación</dt>
+                            <dd>La Paz, Bolivia</dd>
+                        </div>
+                        <div>
+                            <dt>Intereses</dt>
+                            <dd>Web, bases de datos y software</dd>
+                        </div>
+                    </dl>
+                </aside>
             </div>
         </section>
 
+        <!-- 02 · FORMACIÓN -->
         <section id="formacion" class="content_section" aria-labelledby="formacion_title">
             <div class="section_heading">
                 <p class="section_number">02</p>
@@ -109,73 +167,70 @@
             </article>
 
             <article class="timeline_item">
-    <div class="timeline_date">
-        Primaria y Secundaria
-    </div>
-    <div class="timeline_content">
-        <h3>Colegio San Calixto</h3>
-        <p>La Paz, Bolivia</p>
-        <p>
-            Realicé toda mi formación primaria y secundaria en el
-            Colegio San Calixto, donde completé mis estudios escolares
-            antes de iniciar mi formación universitaria.
-        </p>
-    </div>
-</article>
+                <div class="timeline_date">
+                    Primaria y Secundaria
+                </div>
+                <div class="timeline_content">
+                    <h3>Colegio San Calixto</h3>
+                    <p>La Paz, Bolivia</p>
+                    <p>
+                        Realicé toda mi formación primaria y secundaria en el
+                        Colegio San Calixto, donde completé mis estudios escolares
+                        antes de iniciar mi formación universitaria.
+                    </p>
+                </div>
+            </article>
         </section>
 
+        <!-- 03 · PROYECTOS (Funcionalidad 3: buscador en tiempo real) -->
         <section id="proyectos" class="content_section" aria-labelledby="proyectos_title">
             <div class="section_heading">
                 <p class="section_number">03</p>
                 <h2 id="proyectos_title">Proyectos académicos</h2>
             </div>
 
-            <div class="card_grid">
-                <article class="project_card">
-                    <span class="project_tag">JAVA</span>
-                    <h3>Proyecto orientado a objetos</h3>
-                    <p>
-                        Desarrollo de una aplicación en Java utilizando clases,
-                        herencia, polimorfismo, colecciones y componentes de interfaz.
-                    </p>
-                    <ul class="tech_list">
-                        <li>Java</li>
-                        <li>POO</li>
-                        <li>Swing</li>
-                    </ul>
-                </article>
+            <!-- role="search" identifica esta zona como un buscador -->
+            <div class="project_filters" role="search" aria-label="Filtrar proyectos">
+                <div class="form_group">
+                    <label for="project_search">Buscar proyecto</label>
+                    <input
+                        type="search"
+                        id="project_search"
+                        name="project_search"
+                        placeholder="Ej.: Java, Docker, ajedrez…"
+                        autocomplete="off"
+                        aria-controls="project_list"
+                    >
+                </div>
 
-                <article class="project_card">
-                    <span class="project_tag">WEB</span>
-                    <h3>VaJeiNa Planner</h3>
-                    <p>
-                        Proyecto web orientado a la planificación, con separación
-                        entre estructura, estilos y comportamiento.
-                    </p>
-                    <ul class="tech_list">
-                        <li>HTML</li>
-                        <li>CSS</li>
-                        <li>JavaScript</li>
-                        <li>Docker</li>
-                    </ul>
-                </article>
-
-                <article class="project_card">
-                    <span class="project_tag">DATOS</span>
-                    <h3>Proyecto de Probabilidad y Estadística</h3>
-                    <p>
-                        Análisis y organización de datos mediante un proyecto académico
-                        aplicado a información de productos y resultados.
-                    </p>
-                    <ul class="tech_list">
-                        <li>Estadística</li>
-                        <li>Datos</li>
-                        <li>Análisis</li>
-                    </ul>
-                </article>
+                <fieldset class="category_filters">
+                    <legend>Categoría</legend>
+                    <!-- Los botones se marcan con aria-pressed="true" cuando están activos -->
+                    <button type="button" class="chip" data-category="todos" aria-pressed="true">Todos</button>
+                    <button type="button" class="chip" data-category="web" aria-pressed="false">Web</button>
+                    <button type="button" class="chip" data-category="java" aria-pressed="false">Java</button>
+                    <button type="button" class="chip" data-category="cpp" aria-pressed="false">C++</button>
+                    <button type="button" class="chip" data-category="datos" aria-pressed="false">Datos</button>
+                    <button type="button" class="chip" data-category="hardware" aria-pressed="false">Hardware</button>
+                </fieldset>
             </div>
+
+            <!-- aria-live anuncia a lectores de pantalla cuántos resultados hay -->
+            <p id="project_count" class="results_count" role="status" aria-live="polite"></p>
+
+            <!-- JavaScript dibuja aquí las tarjetas a partir del arreglo de proyectos -->
+            <div id="project_list" class="card_grid"></div>
+
+            <p id="project_empty" class="empty_state" hidden>
+                No se encontraron proyectos con esos criterios. Prueba con otra palabra o categoría.
+            </p>
+
+            <noscript>
+                <p class="empty_state">Activa JavaScript para ver y filtrar los proyectos.</p>
+            </noscript>
         </section>
 
+        <!-- 04 · HABILIDADES -->
         <section id="habilidades" class="content_section" aria-labelledby="habilidades_title">
             <div class="section_heading">
                 <p class="section_number">04</p>
@@ -229,15 +284,17 @@
             </div>
         </section>
 
+        <!-- 05 · IDIOMAS -->
         <section id="idiomas" class="content_section" aria-labelledby="idiomas_title">
             <div class="section_heading">
                 <p class="section_number">05</p>
                 <h2 id="idiomas_title">Idiomas</h2>
             </div>
 
-            <div class="table_wrapper">
+            <!-- tabindex="0" permite desplazar la tabla con el teclado en móvil -->
+            <div class="table_wrapper" tabindex="0" role="region" aria-labelledby="idiomas_caption">
                 <table>
-                    <caption>Competencia lingüística</caption>
+                    <caption id="idiomas_caption">Competencia lingüística</caption>
                     <thead>
                         <tr>
                             <th scope="col">Idioma</th>
@@ -255,18 +312,50 @@
                         </tr>
                         <tr>
                             <th scope="row">Inglés</th>
-                            <td>avanzada</td>
+                            <td>Avanzada</td>
                             <td>Intermedia</td>
-                            <td>avanzada</td>
+                            <td>Avanzada</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <section id="contacto" class="content_section" aria-labelledby="contacto_title">
+        <!-- 06 · GITHUB (Funcionalidad 5: consumo de API REST) -->
+        <section id="github" class="content_section" aria-labelledby="github_title">
             <div class="section_heading">
                 <p class="section_number">06</p>
+                <h2 id="github_title">Actividad en GitHub</h2>
+            </div>
+
+            <p class="section_intro">
+                Información obtenida en tiempo real desde la API REST pública de GitHub.
+            </p>
+
+            <!-- Mensaje de estado: cargando / éxito / error -->
+            <div class="api_toolbar">
+                <p id="github_status" class="api_status" role="status" aria-live="polite"></p>
+                <button id="github_retry" class="secondary_button" type="button">↻ Actualizar</button>
+            </div>
+
+            <div class="github_layout">
+                <!-- aside: resumen del perfil de GitHub -->
+                <aside class="github_profile" aria-labelledby="github_profile_title">
+                    <h3 id="github_profile_title">Perfil</h3>
+                    <div id="github_profile_body" class="github_profile_body"></div>
+                </aside>
+
+                <div class="github_repos">
+                    <h3>Repositorios actualizados recientemente</h3>
+                    <ul id="repo_list" class="repo_list" aria-busy="false"></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 07 · CONTACTO (Funcionalidad 4: formulario con validación) -->
+        <section id="contacto" class="content_section" aria-labelledby="contacto_title">
+            <div class="section_heading">
+                <p class="section_number">07</p>
                 <h2 id="contacto_title">Contacto</h2>
             </div>
 
@@ -274,6 +363,9 @@
                 ¿Tienes una propuesta, proyecto o consulta? Completa el formulario.
             </p>
 
+            <!-- novalidate: desactiva los globos del navegador para mostrar
+                 nuestros propios mensajes, pero seguimos usando la validación
+                 nativa (required, minlength, pattern...) desde JavaScript -->
             <form id="contact_form" class="contact_form" novalidate>
                 <div class="form_grid">
                     <div class="form_group">
@@ -319,7 +411,7 @@
 
                     <div class="form_group">
                         <label for="motivo">Motivo *</label>
-                        <select id="motivo" name="motivo" required>
+                        <select id="motivo" name="motivo" required aria-describedby="motivo_error">
                             <option value="">Selecciona una opción</option>
                             <option value="proyecto">Proyecto</option>
                             <option value="trabajo">Oportunidad laboral</option>
@@ -338,16 +430,26 @@
                             minlength="10"
                             maxlength="500"
                             required
-                            aria-describedby="mensaje_error"
+                            aria-describedby="mensaje_error mensaje_counter"
                         ></textarea>
-                        <small id="mensaje_error" class="field_error"></small>
+                        <div class="field_footer">
+                            <small id="mensaje_error" class="field_error"></small>
+                            <small id="mensaje_counter" class="char_counter">0 / 500</small>
+                        </div>
                     </div>
                 </div>
 
                 <div class="checkbox_group">
-                    <input type="checkbox" id="aceptacion" name="aceptacion" required>
+                    <input
+                        type="checkbox"
+                        id="aceptacion"
+                        name="aceptacion"
+                        required
+                        aria-describedby="aceptacion_error"
+                    >
                     <label for="aceptacion">Acepto que mis datos sean utilizados únicamente para responder a este mensaje. *</label>
                 </div>
+                <small id="aceptacion_error" class="field_error"></small>
 
                 <div class="form_actions">
                     <button class="primary_button" type="submit">Enviar mensaje</button>
@@ -359,12 +461,22 @@
         </section>
     </main>
 
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
     <footer class="site_footer">
         <div class="footer_container">
             <p><strong>Adrián Calderón</strong> · CV Interactivo</p>
 
             <nav aria-label="Enlaces profesionales">
-                <a href="https://adriancald.github.io/examenTecnoWeb/" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <ul class="footer_links">
+                    <li>
+                        <a href="https://github.com/AdrianCald" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/AdrianCald/SIS214_ExamenPractico2_CalderonAdrian" target="_blank" rel="noopener noreferrer">Código fuente</a>
+                    </li>
+                </ul>
             </nav>
 
             <p>
