@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CV interactivo de Adrián, estudiante de Ingeniería de Sistemas.">
+    <title>CV Interactivo | Adrián Calderón</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/script.js" defer></script>
+</head>
+
+<body>
+    <a class="skip_link" href="#main_content">Saltar al contenido principal</a>
+
+    <header class="site_header">
+        <div class="header_container">
+            <div class="profile_header">
+                <div class="profile_image_wrapper">
+                    <img
+                        src="assets/images/foto.jpeg"
+                        alt="Fotografía de Adrián Calderón"
+                        class="profile_image"
+                    >
+                </div>
+
+                <div class="profile_data">
+                    <p class="eyebrow">ESTUDIANTE DE INGENIERÍA DE SISTEMAS</p>
+                    <h1>Adrián Calderón</h1>
+                    <p class="profile_role">
+                        Desarrollo de software · Tecnologías web · Bases de datos
+                    </p>
+
+                    <address class="contact_data">
+                        <span>La Paz, Bolivia</span>
+                        <a href="mailto:adrian.calderon@ucb.edu.bo">adrian.calderon@ucb.edu.bo</a>
+                    </address>
+                </div>
+
+                <button
+                    id="theme_button"
+                    class="theme_button"
+                    type="button"
+                    aria-label="Activar modo oscuro"
+                    aria-pressed="false"
+                >
+                    🌙 Modo oscuro
+                </button>
+            </div>
+
+            <nav class="main_nav" aria-label="Navegación principal">
+                <ul>
+                    <li><a href="#perfil">Perfil</a></li>
+                    <li><a href="#formacion">Formación</a></li>
+                    <li><a href="#proyectos">Proyectos</a></li>
+                    <li><a href="#habilidades">Habilidades</a></li>
+                    <li><a href="#idiomas">Idiomas</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main_content" class="main_content">
+
+        <section id="perfil" class="content_section" aria-labelledby="perfil_title">
+            <div class="section_heading">
+                <p class="section_number">01</p>
+                <h2 id="perfil_title">Perfil profesional</h2>
+            </div>
+
+            <div class="profile_card">
+                <p>
+                    Soy estudiante de <strong>Ingeniería de Sistemas</strong> con interés
+                    en el desarrollo de software, las tecnologías web, las bases de datos
+                    y la resolución de problemas mediante programación.
+                </p>
+
+                <p>
+                    Durante mi formación académica he trabajado con
+                    <strong>Java, C++, Python, HTML, CSS, JavaScript y SQL</strong>,
+                    desarrollando proyectos que combinan lógica de programación,
+                    diseño de interfaces y manejo de información.
+                </p>
+
+                <blockquote>
+                    <p>“Aprender tecnología no consiste solo en escribir código, sino en aprender a resolver problemas.”</p>
+                </blockquote>
+            </div>
+        </section>
+
+        <section id="formacion" class="content_section" aria-labelledby="formacion_title">
+            <div class="section_heading">
+                <p class="section_number">02</p>
+                <h2 id="formacion_title">Formación académica</h2>
+            </div>
+
+            <article class="timeline_item">
+                <div class="timeline_date">
+                    <time datetime="2025">2025</time> – Actualidad
+                </div>
+                <div class="timeline_content">
+                    <h3>Ingeniería de Sistemas</h3>
+                    <p>Universidad Católica Boliviana “San Pablo” – La Paz, Bolivia</p>
+                    <p>
+                        Formación en programación, estructuras de datos, bases de datos,
+                        cálculo, estadística, arquitectura computacional y tecnologías web.
+                    </p>
+                </div>
+            </article>
+
+            <article class="timeline_item">
+    <div class="timeline_date">
+        Primaria y Secundaria
+    </div>
+    <div class="timeline_content">
+        <h3>Colegio San Calixto</h3>
+        <p>La Paz, Bolivia</p>
+        <p>
+            Realicé toda mi formación primaria y secundaria en el
+            Colegio San Calixto, donde completé mis estudios escolares
+            antes de iniciar mi formación universitaria.
+        </p>
+    </div>
+</article>
+        </section>
+
+        <section id="proyectos" class="content_section" aria-labelledby="proyectos_title">
+            <div class="section_heading">
+                <p class="section_number">03</p>
+                <h2 id="proyectos_title">Proyectos académicos</h2>
+            </div>
+
+            <div class="card_grid">
+                <article class="project_card">
+                    <span class="project_tag">JAVA</span>
+                    <h3>Proyecto orientado a objetos</h3>
+                    <p>
+                        Desarrollo de una aplicación en Java utilizando clases,
+                        herencia, polimorfismo, colecciones y componentes de interfaz.
+                    </p>
+                    <ul class="tech_list">
+                        <li>Java</li>
+                        <li>POO</li>
+                        <li>Swing</li>
+                    </ul>
+                </article>
+
+                <article class="project_card">
+                    <span class="project_tag">WEB</span>
+                    <h3>VaJeiNa Planner</h3>
+                    <p>
+                        Proyecto web orientado a la planificación, con separación
+                        entre estructura, estilos y comportamiento.
+                    </p>
+                    <ul class="tech_list">
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                        <li>Docker</li>
+                    </ul>
+                </article>
+
+                <article class="project_card">
+                    <span class="project_tag">DATOS</span>
+                    <h3>Proyecto de Probabilidad y Estadística</h3>
+                    <p>
+                        Análisis y organización de datos mediante un proyecto académico
+                        aplicado a información de productos y resultados.
+                    </p>
+                    <ul class="tech_list">
+                        <li>Estadística</li>
+                        <li>Datos</li>
+                        <li>Análisis</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section id="habilidades" class="content_section" aria-labelledby="habilidades_title">
+            <div class="section_heading">
+                <p class="section_number">04</p>
+                <h2 id="habilidades_title">Habilidades técnicas</h2>
+            </div>
+
+            <div class="skills_layout">
+                <article class="skill_group">
+                    <h3>Lenguajes</h3>
+                    <ul>
+                        <li>Java</li>
+                        <li>C++</li>
+                        <li>Python</li>
+                        <li>JavaScript</li>
+                        <li>SQL</li>
+                    </ul>
+                </article>
+
+                <article class="skill_group">
+                    <h3>Tecnologías web</h3>
+                    <ul>
+                        <li>HTML5 semántico</li>
+                        <li>CSS3</li>
+                        <li>Flexbox</li>
+                        <li>CSS Grid</li>
+                        <li>Responsive Design</li>
+                    </ul>
+                </article>
+
+                <article class="skill_group">
+                    <h3>Herramientas</h3>
+                    <ul>
+                        <li>Git y GitHub</li>
+                        <li>Eclipse</li>
+                        <li>Docker</li>
+                        <li>pgAdmin</li>
+                        <li>Visual Studio Code</li>
+                    </ul>
+                </article>
+
+                <article class="skill_group">
+                    <h3>Competencias</h3>
+                    <ul>
+                        <li>Resolución de problemas</li>
+                        <li>Trabajo en equipo</li>
+                        <li>Aprendizaje continuo</li>
+                        <li>Pensamiento lógico</li>
+                        <li>Adaptabilidad</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section id="idiomas" class="content_section" aria-labelledby="idiomas_title">
+            <div class="section_heading">
+                <p class="section_number">05</p>
+                <h2 id="idiomas_title">Idiomas</h2>
+            </div>
+
+            <div class="table_wrapper">
+                <table>
+                    <caption>Competencia lingüística</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Idioma</th>
+                            <th scope="col">Comprensión</th>
+                            <th scope="col">Escritura</th>
+                            <th scope="col">Conversación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Español</th>
+                            <td>Avanzada</td>
+                            <td>Avanzada</td>
+                            <td>Nativa</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Inglés</th>
+                            <td>avanzada</td>
+                            <td>Intermedia</td>
+                            <td>avanzada</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="contacto" class="content_section" aria-labelledby="contacto_title">
+            <div class="section_heading">
+                <p class="section_number">06</p>
+                <h2 id="contacto_title">Contacto</h2>
+            </div>
+
+            <p class="contact_intro">
+                ¿Tienes una propuesta, proyecto o consulta? Completa el formulario.
+            </p>
+
+            <form id="contact_form" class="contact_form" novalidate>
+                <div class="form_grid">
+                    <div class="form_group">
+                        <label for="nombre">Nombre completo *</label>
+                        <input
+                            type="text"
+                            id="nombre"
+                            name="nombre"
+                            autocomplete="name"
+                            minlength="3"
+                            maxlength="80"
+                            required
+                            aria-describedby="nombre_error"
+                        >
+                        <small id="nombre_error" class="field_error"></small>
+                    </div>
+
+                    <div class="form_group">
+                        <label for="correo">Correo electrónico *</label>
+                        <input
+                            type="email"
+                            id="correo"
+                            name="correo"
+                            autocomplete="email"
+                            required
+                            aria-describedby="correo_error"
+                        >
+                        <small id="correo_error" class="field_error"></small>
+                    </div>
+
+                    <div class="form_group">
+                        <label for="telefono">Teléfono</label>
+                        <input
+                            type="tel"
+                            id="telefono"
+                            name="telefono"
+                            autocomplete="tel"
+                            pattern="[0-9+\-\s()]{7,20}"
+                            aria-describedby="telefono_error"
+                        >
+                        <small id="telefono_error" class="field_error"></small>
+                    </div>
+
+                    <div class="form_group">
+                        <label for="motivo">Motivo *</label>
+                        <select id="motivo" name="motivo" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="proyecto">Proyecto</option>
+                            <option value="trabajo">Oportunidad laboral</option>
+                            <option value="consulta">Consulta académica</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                        <small id="motivo_error" class="field_error"></small>
+                    </div>
+
+                    <div class="form_group form_group_full">
+                        <label for="mensaje">Mensaje *</label>
+                        <textarea
+                            id="mensaje"
+                            name="mensaje"
+                            rows="6"
+                            minlength="10"
+                            maxlength="500"
+                            required
+                            aria-describedby="mensaje_error"
+                        ></textarea>
+                        <small id="mensaje_error" class="field_error"></small>
+                    </div>
+                </div>
+
+                <div class="checkbox_group">
+                    <input type="checkbox" id="aceptacion" name="aceptacion" required>
+                    <label for="aceptacion">Acepto que mis datos sean utilizados únicamente para responder a este mensaje. *</label>
+                </div>
+
+                <div class="form_actions">
+                    <button class="primary_button" type="submit">Enviar mensaje</button>
+                    <button class="secondary_button" type="reset">Limpiar</button>
+                </div>
+
+                <p id="form_message" class="form_message" aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site_footer">
+        <div class="footer_container">
+            <p><strong>Adrián Calderón</strong> · CV Interactivo</p>
+
+            <nav aria-label="Enlaces profesionales">
+                <a href="https://adriancald.github.io/examenTecnoWeb/" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </nav>
+
+            <p>
+                <small>&copy; <time datetime="2026">2026</time> · Proyecto académico de Tecnologías Web I</small>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
