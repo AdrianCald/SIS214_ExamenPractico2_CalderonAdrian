@@ -8,9 +8,14 @@
     <meta name="color-scheme" content="light dark">
     <title>CV Interactivo | Adrián Calderón</title>
 
+    <!-- Librerías externas (guardadas localmente en la carpeta libs/) -->
+    <link rel="stylesheet" href="libs/aos/aos.css">
+    <script src="libs/aos/aos.js" defer></script>
+
+    <!-- Estilos propios -->
     <link rel="stylesheet" href="css/styles.css">
 
-    <!-- JavaScript propio como módulo ES6 -->
+    <!-- JavaScript propio como módulo ES6 (se ejecuta después de las librerías) -->
     <script type="module" src="js/main.js"></script>
 </head>
 
@@ -96,7 +101,7 @@
     <main id="main_content" class="main_content" tabindex="-1">
 
         <!-- 01 · PERFIL -->
-        <section id="perfil" class="content_section" aria-labelledby="perfil_title">
+        <section id="perfil" class="content_section" data-aos="fade-up" aria-labelledby="perfil_title">
             <header class="section_heading">
                 <p class="section_number">01</p>
                 <h2 id="perfil_title">Perfil profesional</h2>
@@ -148,7 +153,7 @@
         </section>
 
         <!-- 02 · FORMACIÓN -->
-        <section id="formacion" class="content_section" aria-labelledby="formacion_title">
+        <section id="formacion" class="content_section" data-aos="fade-up" aria-labelledby="formacion_title">
             <header class="section_heading">
                 <p class="section_number">02</p>
                 <h2 id="formacion_title">Formación académica</h2>
@@ -181,7 +186,7 @@
         </section>
 
         <!-- 03 · PROYECTOS (Funcionalidad 3: buscador en tiempo real) -->
-        <section id="proyectos" class="content_section" aria-labelledby="proyectos_title">
+        <section id="proyectos" class="content_section" data-aos="fade-up" aria-labelledby="proyectos_title">
             <header class="section_heading">
                 <p class="section_number">03</p>
                 <h2 id="proyectos_title">Proyectos académicos</h2>
@@ -229,7 +234,7 @@
         </section>
 
         <!-- 04 · HABILIDADES -->
-        <section id="habilidades" class="content_section" aria-labelledby="habilidades_title">
+        <section id="habilidades" class="content_section" data-aos="fade-up" aria-labelledby="habilidades_title">
             <header class="section_heading">
                 <p class="section_number">04</p>
                 <h2 id="habilidades_title">Habilidades técnicas</h2>
@@ -283,7 +288,7 @@
         </section>
 
         <!-- 05 · IDIOMAS -->
-        <section id="idiomas" class="content_section" aria-labelledby="idiomas_title">
+        <section id="idiomas" class="content_section" data-aos="fade-up" aria-labelledby="idiomas_title">
             <header class="section_heading">
                 <p class="section_number">05</p>
                 <h2 id="idiomas_title">Idiomas</h2>
@@ -320,7 +325,7 @@
         </section>
 
         <!-- 06 · GITHUB (Funcionalidad 5: consumo de API REST) -->
-        <section id="github" class="content_section" aria-labelledby="github_title">
+        <section id="github" class="content_section" data-aos="fade-up" aria-labelledby="github_title">
             <header class="section_heading">
                 <p class="section_number">06</p>
                 <h2 id="github_title">Actividad en GitHub</h2>
@@ -351,7 +356,7 @@
         </section>
 
         <!-- 07 · CONTACTO (Funcionalidad 4: formulario con validación) -->
-        <section id="contacto" class="content_section" aria-labelledby="contacto_title">
+        <section id="contacto" class="content_section" data-aos="fade-up" aria-labelledby="contacto_title">
             <header class="section_heading">
                 <p class="section_number">07</p>
                 <h2 id="contacto_title">Contacto</h2>
